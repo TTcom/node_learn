@@ -1,15 +1,15 @@
-const getList = (author, keyword)=>{
-    //先返回假数据（格式是正确的）
-    return [
-        {
-            id:1,
-            title:'标题A',
-            content:'内容A',
-            createTime:'d412412',
-            author:'zhansan'
-        }
-    ]
+const {exec} = require('../db/mysql')
 
+const getList = (author, keyword)=>{
+    let sql = `select * from blogmsg where 1=1 `
+    if(author) {
+        sql += `and author='${author}'`
+    }
+    if(keyword) {
+        sql += `and title like '%${keyword}%' `
+    }
+    sql +=`order by createtime desc` //根据创建时间倒序排序
+    return exec(sql)
 }
 
 

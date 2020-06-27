@@ -43,12 +43,16 @@ const serverHandle = (req, res) => {
         //解析 query
         req.query = querystring.parse(url.split('?')[1]);
         //处理BLOG路由
-        const blogData = handleBlogRouter(req, res)
-        if (blogData) {
-            res.end(
-                JSON.stringify(blogData)
-            )
-            return
+        const blogResult = handleBlogRouter(req, res)
+        if(blogResult){
+                blogResult.then(blogData=>{
+                    if (blogData) {
+                        res.end(
+                            JSON.stringify(blogData)
+                        )
+                    }
+                })
+                return
         }
 
         //处理USER路由
