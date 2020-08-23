@@ -56,13 +56,22 @@ const serverHandle = (req, res) => {
         }
 
         //处理USER路由
-        const userData = handleUserRouter(req, res)
-        if (userData) {
+        const userResult = handleUserRouter(req, res)
+        // if (userData) {
+        //     res.end(
+        //         JSON.stringify(userData)
+        //     )
+        //     return
+        // }
+        if(userResult){
+            userResult.then(userData=>{
             res.end(
-                JSON.stringify(userData)
-            )
+                      JSON.stringify(userData)
+                )    
+            })
             return
         }
+        
 
         //未命中路由，返回404
         res.writeHeader(404, { 'Content-type': 'text/plain' })

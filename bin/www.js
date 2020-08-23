@@ -22,3 +22,11 @@ server.listen(3000,()=>{
 // con.connect()
 
 //执行sql语句
+// const sql = 'select * from user;'
+// con.query(sql,(err, result) =>{
+//     if(err){
+//         console.error(err)
+//         return
+//     }
+//     console.log(result)
+// })
