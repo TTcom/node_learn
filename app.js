@@ -42,6 +42,20 @@ const serverHandle = (req, res) => {
 
         //解析 query
         req.query = querystring.parse(url.split('?')[1]);
+                     
+        //解析 cookie
+        req.cookie = {}
+        const cookieStr = req.headers.cookie || '' //k1=v1
+        cookieStr.split(';').forEach(item=>{
+            if(!item){
+                return
+            }
+            const arr = item.split('=')
+            const key = arr[0]
+            const val = arr[1]
+            req.cookie[key] = val
+        })
+        console.log('cookie',req.cookie)
         //处理BLOG路由
         const blogResult = handleBlogRouter(req, res)
         if(blogResult){
