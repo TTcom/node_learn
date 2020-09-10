@@ -1,6 +1,7 @@
 const handleBlogRouter = require('./src/router/blog')
 const handleUserRouter = require('./src/router/user')
 const querystring = require('querystring');
+const user = require('./src/controller/user');
 
 //用于处理 post data
 const getPostData = (req) => {
@@ -56,6 +57,18 @@ const serverHandle = (req, res) => {
             req.cookie[key] = val
         })
         console.log('cookie',req.cookie)
+        //解析session
+        const userId = req.cookie.userId
+        if(userId){
+            if(!SEESION_DATA[userId]){
+                SEESION_DATA[userId] = {}
+            }
+        }else{
+            userId = `${Date.now()}_${Math.random()}`
+            SEESION_DATA[userId] = {}
+        }
+          req.session =  SEESION_DATA[userId]  
+          
         //处理BLOG路由
         const blogResult = handleBlogRouter(req, res)
         if(blogResult){
