@@ -12,7 +12,7 @@ const handleUserRouter = (req,res) =>{
                 //设置session
                 req.session.username = data.username
                 req.session.realname = data.realname
-                console.log('req.session',req.session)
+
                   return new SuccessModel("登录成功")
             }else{
                 return new ErrorModel("登录失败")
